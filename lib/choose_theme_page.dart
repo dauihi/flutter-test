@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:text_flutter/cell_widget.dart';
+import 'package:text_flutter/theme_type_notifier.dart';
 import 'ori_cell_data.dart';
 import 'theme_data.dart';
 import 'cell_widget.dart';
@@ -51,7 +53,8 @@ class _ChooseThemePageState extends State<ChooseThemePage> {
                   style: new TextStyle(fontSize: 12),
                 ),
                 onPressed: () {
-                  Navigator.pop(context, this.widget.curThemeType);
+                  Navigator.pop(context);
+                  // Navigator.pop(context, this.widget.curThemeType);
                 },
               ),
             ),
@@ -83,6 +86,9 @@ class _ChooseThemePageState extends State<ChooseThemePage> {
                 if (showImage) {
                   this.widget.curThemeType = theThemeType;
                   setState(() {});
+
+                  Provider.of<ThemeTypeNotifier>(context, listen: false)
+                      .changeThemeType(theThemeType);
                 }
               });
           cellData.setTheme(_curThemeData);

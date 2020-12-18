@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:text_flutter/cell_widget.dart';
+import 'package:text_flutter/theme_type_notifier.dart';
 import 'ori_cell_data.dart';
 import 'theme_data.dart';
 import 'cell_widget.dart';
 import 'choose_theme_page.dart';
+import 'theme_data.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TheThemeType curThemeType = TheThemeType.black;
+  TheThemeType curThemeType = TheThemeType.white;
 
   var _data = [];
 
@@ -33,6 +36,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theThemeType = Provider.of<ThemeTypeNotifier>(context).theThemeType;
+    curThemeType = theThemeType;
     TheThemeData _curThemeData = getThemeData(curThemeType);
     // TODO: implement build
     return Scaffold(
@@ -57,9 +62,9 @@ class _HomePageState extends State<HomePage> {
                     curThemeType: this.curThemeType,
                   );
                 })).then((value) {
-                  this.curThemeType = value;
+                  // this.curThemeType = value;
 
-                  setState(() {});
+                  // setState(() {});
                 });
               },
             )

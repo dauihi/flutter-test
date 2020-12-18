@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:text_flutter/theme_type_notifier.dart';
 import 'home_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider<ThemeTypeNotifier>.value(
+    value: ThemeTypeNotifier(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
