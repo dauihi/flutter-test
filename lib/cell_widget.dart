@@ -5,14 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:text_flutter/cell_inner_widget.dart';
 import 'cell_inner_widget.dart';
 import 'util.dart';
-
-enum DataType { section, text, btn, switchBtn, image, number, choose }
+import 'ori_cell_data.dart';
+import 'theme_data.dart';
 
 class CellData {
   DataType dataType;
   String text;
   String imageName;
-  Color color;
+  Color backgroundColor;
+  Color buttonColor;
+  Color switchActiveColor;
+  Color switchTrackColor;
+  Color cellTextColor;
   TheThemeType theThemeType;
   bool curShowImage;
   final void Function(TheThemeType, bool) onButtonPressed;
@@ -21,14 +25,49 @@ class CellData {
       {this.dataType,
       this.text,
       this.imageName,
-      this.color,
+      this.backgroundColor,
+      this.buttonColor,
+      this.switchActiveColor,
+      this.switchTrackColor,
+      this.cellTextColor,
       this.onButtonPressed,
       this.theThemeType,
       this.curShowImage});
 
-  void setColor(Color color) {
-    this.color = color;
+  void setTheme(TheThemeData theThemeData) {
+    this.backgroundColor = theThemeData.backgroundColor;
+    this.switchActiveColor = theThemeData.switchActiveColor;
+    this.switchTrackColor = theThemeData.switchTrackColor;
+    this.buttonColor = theThemeData.buttonBackgroundColor;
+    this.cellTextColor = theThemeData.cellTextColor;
   }
+}
+
+CellData getCellData(OriCellData oriCellData) {
+  CellData cellData;
+  if (oriCellData.dataType == DataType.choose) {
+    cellData = new CellData(
+        dataType: oriCellData.dataType,
+        text: oriCellData.text,
+        imageName: oriCellData.imageName,
+        curShowImage: false,
+        onButtonPressed: (theThemeType, showImage) {});
+  } else {
+    cellData = new CellData(
+        dataType: oriCellData.dataType,
+        text: oriCellData.text,
+        imageName: oriCellData.imageName);
+  }
+  return cellData;
+}
+
+List<CellData> getCellDataList(List<OriCellData> oriCellDataList) {
+  List<CellData> list = [];
+  for (var i = 0; i < oriCellDataList.length; i++) {
+    CellData cellData = getCellData(oriCellDataList[i]);
+    list.add(cellData);
+  }
+  return list;
 }
 
 class CellWidget extends StatefulWidget {
@@ -69,7 +108,7 @@ class CellWidgetState extends State<CellWidget> {
                         CellTextWidget(
                           text: this.widget.cellData.text,
                           leftPad: 0,
-                          color: this.widget.cellData.color,
+                          color: this.widget.cellData.cellTextColor,
                         ),
                         // SizedBox(width: 80),
                       ],
@@ -80,7 +119,7 @@ class CellWidgetState extends State<CellWidget> {
                     children: <Widget>[
                       CellTextWidget(
                         text: "子" + this.widget.cellData.text,
-                        color: this.widget.cellData.color,
+                        color: this.widget.cellData.cellTextColor,
                       ),
                       CellImageWidget(
                         imageName: "tableview_arrow_8x13.png",
@@ -94,7 +133,7 @@ class CellWidgetState extends State<CellWidget> {
               ),
               new Container(
                 height: 0.5,
-                color: this.widget.cellData.color,
+                color: this.widget.cellData.cellTextColor,
               )
             ],
           );
@@ -111,7 +150,7 @@ class CellWidgetState extends State<CellWidget> {
                     padding: EdgeInsets.fromLTRB(35, 0, 0, 0),
                     child: CellTextWidget(
                       text: this.widget.cellData.text,
-                      color: this.widget.cellData.color,
+                      color: this.widget.cellData.cellTextColor,
                     ),
                   ),
                   CellButtonWidget(
@@ -128,7 +167,7 @@ class CellWidgetState extends State<CellWidget> {
               ),
               new Container(
                 height: 0.5,
-                color: this.widget.cellData.color,
+                color: this.widget.cellData.cellTextColor,
               )
             ],
           );
@@ -144,7 +183,7 @@ class CellWidgetState extends State<CellWidget> {
                 ),
                 new Container(
                   height: 0.5,
-                  color: this.widget.cellData.color,
+                  color: this.widget.cellData.cellTextColor,
                 )
               ],
             );
@@ -165,7 +204,7 @@ class CellWidgetState extends State<CellWidget> {
                     ]),
                 new Container(
                   height: 0.5,
-                  color: this.widget.cellData.color,
+                  color: this.widget.cellData.cellTextColor,
                 )
               ],
             );
@@ -181,12 +220,13 @@ class CellWidgetState extends State<CellWidget> {
                   child: new Center(
                     child: Text(
                       this.widget.cellData.text,
-                      style: TextStyle(color: this.widget.cellData.color),
+                      style:
+                          TextStyle(color: this.widget.cellData.cellTextColor),
                     ),
                   )),
               new Container(
                 height: 0.5,
-                color: this.widget.cellData.color,
+                color: this.widget.cellData.cellTextColor,
               )
             ],
           );
@@ -213,7 +253,7 @@ class CellWidgetState extends State<CellWidget> {
                         CellTextWidget(
                           text: this.widget.cellData.text,
                           leftPad: 0,
-                          color: this.widget.cellData.color,
+                          color: this.widget.cellData.cellTextColor,
                         ),
                         // SizedBox(width: 80),
                       ],
@@ -240,7 +280,7 @@ class CellWidgetState extends State<CellWidget> {
               ),
               new Container(
                 height: 0.5,
-                color: this.widget.cellData.color,
+                color: this.widget.cellData.cellTextColor,
               )
             ],
           );
@@ -266,7 +306,7 @@ class CellWidgetState extends State<CellWidget> {
                         CellTextWidget(
                           text: this.widget.cellData.text,
                           leftPad: 0,
-                          color: this.widget.cellData.color,
+                          color: this.widget.cellData.cellTextColor,
                         ),
                         // SizedBox(width: 80),
                       ],
@@ -278,8 +318,8 @@ class CellWidgetState extends State<CellWidget> {
                       CupertinoSwitch(
                         value: isTrue,
                         onChanged: (value) {},
-                        activeColor: Colors.green,
-                        trackColor: Colors.blueAccent,
+                        activeColor: this.widget.cellData.switchActiveColor,
+                        trackColor: this.widget.cellData.switchTrackColor,
                       )
                     ],
                   )
@@ -287,7 +327,7 @@ class CellWidgetState extends State<CellWidget> {
               ),
               new Container(
                 height: 0.5,
-                color: this.widget.cellData.color,
+                color: this.widget.cellData.cellTextColor,
               )
             ],
           );
@@ -309,7 +349,7 @@ class CellWidgetState extends State<CellWidget> {
                         CellTextWidget(
                           text: this.widget.cellData.text,
                           leftPad: 0,
-                          color: this.widget.cellData.color,
+                          color: this.widget.cellData.cellTextColor,
                         ),
                         // SizedBox(width: 80),
                       ],
@@ -320,7 +360,7 @@ class CellWidgetState extends State<CellWidget> {
                     children: <Widget>[
                       RaisedButton(
                         onPressed: () {},
-                        color: Colors.green,
+                        color: this.widget.cellData.buttonColor,
                         child: Text("随便吧"),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
@@ -337,7 +377,7 @@ class CellWidgetState extends State<CellWidget> {
               ),
               new Container(
                 height: 0.5,
-                color: this.widget.cellData.color,
+                color: this.widget.cellData.cellTextColor,
               )
             ],
           );

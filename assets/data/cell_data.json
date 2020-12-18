@@ -1,0 +1,102 @@
+[
+    {
+        "type": "text",
+        "text": "0",
+        "imageName": "football_check.png"
+    },
+    {
+        "type": "text",
+        "text": "1",
+        "imageName": "check_open.png"
+    },
+    {
+        "type": "text",
+        "text": "2",
+        "imageName": "basketball_check.png"
+    },
+    {
+        "type": "text",
+        "text": "5",
+        "imageName": "basketball_check.png"
+    },
+    {
+        "type": "section",
+        "text": "",
+        "imageName": ""
+    },
+    {
+        "type": "btn",
+        "text": "11",
+        "imageName": ""
+    },
+    {
+        "type": "section",
+        "text": "",
+        "imageName": ""
+    },
+    {
+        "type": "section",
+        "text": "",
+        "imageName": ""
+    },
+    {
+        "type": "switchBtn",
+        "text": "5",
+        "imageName": ""
+    },
+    {
+        "type": "switchBtn",
+        "text": "6",
+        "imageName": ""
+    },
+    {
+        "type": "switchBtn",
+        "text": "10",
+        "imageName": ""
+    },
+    {
+        "type": "section",
+        "text": "section2 footer",
+        "imageName": ""
+    },
+    {
+        "type": "image",
+        "text": "7",
+        "imageName": "About_WeChat_AppIcon_64x64.png"
+    },
+    {
+        "type": "image",
+        "text": "8",
+        "imageName": "default_100x100.png"
+    },
+    {
+        "type": "section",
+        "text": "",
+        "imageName": ""
+    },
+    {
+        "type": "choose",
+        "text": "9",
+        "imageName": ""
+    },
+    {
+        "type": "choose",
+        "text": "10",
+        "imageName": ""
+    },
+    {
+        "type": "section",
+        "text": "",
+        "imageName": ""
+    },
+    {
+        "type": "number",
+        "text": "3",
+        "imageName": ""
+    },
+    {
+        "type": "number",
+        "text": "4",
+        "imageName": ""
+    }
+]
