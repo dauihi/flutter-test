@@ -6,6 +6,7 @@ import 'home_page.dart';
 import 'animation_page.dart';
 import 'hero_animation_page.dart';
 import 'gesture_page.dart';
+import 'new_page.dart';
 
 void main() {
   runApp(ChangeNotifierProvider<ThemeTypeNotifier>.value(
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      home: LogoApp(),
+      home: DateWidget(),
     );
   }
 }
