@@ -414,3 +414,52 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 }
+
+class CustomScrollViewWidget extends StatefulWidget {
+  @override
+  _CustomScrollViewWidgetState createState() => _CustomScrollViewWidgetState();
+}
+
+class _CustomScrollViewWidgetState extends State<CustomScrollViewWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return buildCustomScrollView();
+  }
+
+  CustomScrollView buildCustomScrollView() {
+    return CustomScrollView(
+      physics: BouncingScrollPhysics(),
+      slivers: <Widget>[
+        SliverAppBar(
+          title: Text("测试"),
+        ),
+        SliverGrid(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: 2.0,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+          ),
+          delegate:
+              new SliverChildBuilderDelegate((BuildContext context, num index) {
+            return Container(
+              color: Colors.blue,
+              child: Text('grid $index'),
+            );
+          }, childCount: 10),
+        ),
+        SliverFixedExtentList(
+          itemExtent: 40,
+          delegate:
+              new SliverChildBuilderDelegate((BuildContext context, num index) {
+            return Container(
+              color: Colors.red,
+              child: Text('list $index'),
+              margin: EdgeInsets.only(bottom: 10),
+            );
+          }, childCount: 40),
+        )
+      ],
+    );
+  }
+}

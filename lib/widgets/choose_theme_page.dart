@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:text_flutter/cell_widget.dart';
-import 'package:text_flutter/theme_type_notifier.dart';
+import 'package:text_flutter/widgets/cell_widget.dart';
+import 'package:text_flutter/widgets/theme_type_notifier.dart';
 import 'ori_cell_data.dart';
 import 'theme_data.dart';
 import 'cell_widget.dart';
