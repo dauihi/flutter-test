@@ -27,7 +27,7 @@ void saveVal(SaveType type, String key, String value) async {
   }
 }
 
-void getVal(SaveType type, String key) async {
+Future<String> getVal(SaveType type, String key) async {
   var val;
   switch (type) {
     case SaveType.pre:

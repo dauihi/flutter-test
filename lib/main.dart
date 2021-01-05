@@ -9,7 +9,7 @@ import 'widgets/gesture_page.dart';
 import 'widgets/card_page.dart';
 import 'storage/storage.dart';
 import 'widgets/form_page.dart';
-import 'network/network.dart';
+import 'widgets/network_test_page.dart';
 
 void main() {
   runApp(ChangeNotifierProvider<ThemeTypeNotifier>.value(

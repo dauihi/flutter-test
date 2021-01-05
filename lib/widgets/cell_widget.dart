@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:text_flutter/widgets/cell_inner_widget.dart';
 import 'cell_inner_widget.dart';
 import '../utils/util.dart';
-import 'ori_cell_data.dart';
-import 'theme_data.dart';
+import '../model/ori_cell_data.dart';
+import '../model/theme_data.dart';
 
 class CellData {
   DataType dataType;

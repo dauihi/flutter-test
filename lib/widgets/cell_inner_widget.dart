@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import '../utils/util.dart';
-import 'theme_data.dart';
+import '../model/theme_data.dart';
 
 class CellTextWidget extends StatefulWidget {
   final String text;
