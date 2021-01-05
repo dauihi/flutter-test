@@ -9,6 +9,7 @@ import 'widgets/gesture_page.dart';
 import 'widgets/card_page.dart';
 import 'storage/storage.dart';
 import 'widgets/form_page.dart';
+import 'network/network.dart';
 
 void main() {
   runApp(ChangeNotifierProvider<ThemeTypeNotifier>.value(
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      home: FormTestWidget(),
+      home: NetworkTestWidget(),
     );
   }
 }
