@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:text_flutter/widgets/cell_inner_widget.dart';
+import 'cell_inner_widget.dart';
 import 'cell_inner_widget.dart';
 import '../utils/util.dart';
 import '../model/ori_cell_data.dart';
