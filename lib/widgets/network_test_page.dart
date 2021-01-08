@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../network/network.dart';
+import '../model/network_test_model.dart';
+import '../network/socket.dart';
 
 class NetworkTestWidget extends StatefulWidget {
   @override
@@ -12,11 +14,46 @@ class _NetworkTestWidgetState extends State<NetworkTestWidget> {
   @override
   void initState() {
     // TODO: implement initState
-    getData().then((result) {
-      setState(() {
-        text = result;
-      });
-    });
+    connect();
+
+    // getDataByDio().then((result) {
+    //   setState(() {
+    //     text = result;
+    //   });
+    // });
+
+    // postDataByDio({"a": 1, "b": 2}).then((result) {
+    //   PostTestResponseModel model = PostTestResponseModel.fromJson(result);
+    //   if (model.code == 200) {
+    //     setState(() {
+    //       text = model.data.toString();
+    //     });
+    //   }
+    // });
+
+    // getDataByOri().then((result) {
+    //   setState(() {
+    //     text = result;
+    //   });
+    // });
+    // postDataByOri({"a": "1", "b": "2"}).then((result) {
+    //   print(result);
+    // });
+
+    // getDataByHttp().then((result) {
+    //   setState(() {
+    //     text = result;
+    //   });
+    // });
+
+    // postDataByHttp({"a": "1", "b": "2"}).then((result) {
+    //   PostTestResponseModel model = PostTestResponseModel.fromJson(result);
+    //   if (model.code == 200) {
+    //     setState(() {
+    //       text = model.data.toString();
+    //     });
+    //   }
+    // });
   }
 
   @override
