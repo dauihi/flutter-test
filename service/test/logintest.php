@@ -23,7 +23,7 @@ $name = isset($_POST['name']) ? $_POST['name'] : '';
 $pwd = isset($_POST['pwd']) ? $_POST['pwd'] : '';
 
 if ($action == 'login') {
-    login($name, $pwd, true);
+    login($name, $pwd);
 } else if ($action == 'register') {
     register($name, $pwd);
 } else if ($action == 'modifypwd') {
@@ -39,7 +39,7 @@ if ($action == 'login') {
 close_conn();
 
 /*用户登录*/
-function login($name, $pwd, $normal)
+function login($name, $pwd)
 {
     global $conn;
     global $mysql_table;
@@ -52,13 +52,20 @@ function login($name, $pwd, $normal)
                 $success = true;
             }
         }
-        if ($normal) {
-            $login_result = array('login_result' => $success);
-            $json = json_encode($login_result);
-            echo $json;
+        $message = "登录失败";
+        if ($success) {
+            $message = "登录成功";
         }
+        echo json_encode([
+            "success" => $success,
+            "message" => $message
+        ]);
+    } else {
+        echo json_encode([
+            "success" => false,
+            "message" => "服务器出错"
+        ]);
     }
-    return $success;
 }
 
 /*用户注册*/
@@ -66,6 +73,8 @@ function register($name, $pwd)
 {
     global $conn;
     global $mysql_table;
+
+    $success = false;
 
     if ($conn) {
         //数据库查询
@@ -75,9 +84,6 @@ function register($name, $pwd)
             if ($name == $row['name']) {
                 //注册失败，用户名已存在;
                 $exist = true;
-                $register_result = array("register_result" => false, "error_code" => 0);
-                $json = json_encode($register_result);
-                echo $json;
             }
         }
 
@@ -85,18 +91,25 @@ function register($name, $pwd)
         if (!$exist) {
             $id = mysqli_num_rows($result) + 1;
             $success = mysqli_query($conn, "insert into $mysql_table values('$id', '$name', '$pwd')");
-            if ($success) {
-                //注册成功
-                $register_result = array("register_result" => $success);
-                $json = json_encode($register_result);
-                echo $json;
+        }
+
+        $message = "注册成功";
+        if (!$success) {
+            if ($exist) {
+                $message = "用户名已存在";
             } else {
-                //注册失败，数据库插入错误
-                $register_result = array("register_result" => $success, "error_code" => 1);
-                $json = json_encode($register_result);
-                echo $json;
+                $message = "注册失败";
             }
         }
+        echo json_encode([
+            "success" => $success,
+            "message" => $message
+        ]);
+    } else {
+        echo json_encode([
+            "success" => false,
+            "message" => "服务器出错"
+        ]);
     }
 }
 

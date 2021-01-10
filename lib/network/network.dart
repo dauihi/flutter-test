@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 // import 'package:http/http.dart' as http;
 
 final String postTestUrl = "http://192.168.31.106:80/test/posttest.php";
-final String loginTestUrl = "http://192.168.1.6:80/test/logintest.php";
+final String loginTestUrl = "http://192.168.31.106:80/test/logintest.php";
 
 getDataByDio() async {
   String url = "http://192.168.1.6:80/test/index.php";
@@ -69,6 +69,14 @@ getDataByOri() async {
 //   return jsonDecode(content);
 // }
 
-loginTest(Map<String, dynamic> map) async {
-  return await postDataByDio(loginTestUrl, map);
+loginTest(Map<String, dynamic> map, void data(data)) async {
+  map["action"] = "login";
+  var result = await postDataByDio(loginTestUrl, map);
+  data(result);
+}
+
+registerTest(Map<String, dynamic> map, void data(data)) async {
+  map["action"] = "register";
+  var result = await postDataByDio(loginTestUrl, map);
+  data(result);
 }
