@@ -28,8 +28,6 @@ if (($ret = socket_listen($sock, 4)) < 0) {
     exit();
 }
 
-//次数
-$count = 0;
 
 do {
     //接收一个Socket连接
@@ -43,16 +41,11 @@ do {
 
         echo "测试成功了啊\n";
         // 获得客户端的输入
-        $buf = socket_read($msgsock, 2048);
-
-        $talkback = "收到的信息:$buf\n";
-        echo $talkback;
-
-        //第5次结束
-        if (++$count >= 5) {
-            break;
+        while ($buf = socket_read($msgsock, 2048)) {
+            $talkback = "收到的信息:$buf\n";
+            echo $talkback;
         }
     }
     //关闭socket
-    socket_close($msgsock);
+    // socket_close($msgsock);
 } while (true);

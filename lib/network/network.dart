@@ -3,16 +3,18 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 // import 'package:http/http.dart' as http;
 
+final String postTestUrl = "http://192.168.31.106:80/test/posttest.php";
+final String loginTestUrl = "http://192.168.1.6:80/test/logintest.php";
+
 getDataByDio() async {
-  String url = "http://192.168.31.106:80/test/index.php";
+  String url = "http://192.168.1.6:80/test/index.php";
   Dio dio = new Dio();
   Response response = await dio.get(url);
   var data = response.data;
   return data;
 }
 
-postDataByDio(Map<String, dynamic> map) async {
-  String url = "http://192.168.31.106:80/test/posttest.php";
+postDataByDio(String url, Map<String, dynamic> map) async {
   Dio dio = new Dio();
   FormData formData = FormData.fromMap(map);
   Response response = await dio.post(url, data: formData);
@@ -66,3 +68,7 @@ getDataByOri() async {
 //   var content = response.body;
 //   return jsonDecode(content);
 // }
+
+loginTest(Map<String, dynamic> map) async {
+  return await postDataByDio(loginTestUrl, map);
+}
