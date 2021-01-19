@@ -19,15 +19,16 @@ mysqli_select_db($conn, $mysql_database);
 
 //获取url参数
 $action = isset($_POST['action']) ? $_POST['action'] : '';
+$email = isset($_POST['email']) ? $_POST['email'] : '';
 $name = isset($_POST['name']) ? $_POST['name'] : '';
 $pwd = isset($_POST['pwd']) ? $_POST['pwd'] : '';
 
 if ($action == 'login') {
-    login($name, $pwd);
+    login($email, $pwd);
 } else if ($action == 'register') {
-    register($name, $pwd);
+    register($email, $name, $pwd);
 } else if ($action == 'modifypwd') {
-    modifypwd($name, $pwd);
+    modifypwd($email, $pwd);
 } else if ($action == 'showAll') {
     showAll();
 } else {
@@ -39,16 +40,16 @@ if ($action == 'login') {
 close_conn();
 
 /*用户登录*/
-function login($name, $pwd)
+function login($email, $pwd)
 {
     global $conn;
     global $mysql_table;
 
     if ($conn) {
-        $result = mysqli_query($conn, "select name,pwd from $mysql_table");
+        $result = mysqli_query($conn, "select email,pwd from $mysql_table");
         $success = false;
         while ($row = mysqli_fetch_array($result)) {
-            if ($name == $row['name'] && $pwd == $row['pwd']) {
+            if ($email == $row['email'] && $pwd == $row['pwd']) {
                 $success = true;
             }
         }
@@ -69,7 +70,7 @@ function login($name, $pwd)
 }
 
 /*用户注册*/
-function register($name, $pwd)
+function register($email, $name, $pwd)
 {
     global $conn;
     global $mysql_table;
@@ -78,11 +79,11 @@ function register($name, $pwd)
 
     if ($conn) {
         //数据库查询
-        $result = mysqli_query($conn, "select name from $mysql_table");
+        $result = mysqli_query($conn, "select email from $mysql_table");
         $exist = false;
         while ($row = mysqli_fetch_array($result)) {
-            if ($name == $row['name']) {
-                //注册失败，用户名已存在;
+            if ($email == $row['email']) {
+                //注册失败，邮箱已存在;
                 $exist = true;
             }
         }
@@ -90,13 +91,13 @@ function register($name, $pwd)
         //插入数据库			
         if (!$exist) {
             $id = mysqli_num_rows($result) + 1;
-            $success = mysqli_query($conn, "insert into $mysql_table values('$id', '$name', '$pwd')");
+            $success = mysqli_query($conn, "insert into $mysql_table values('$id', '$name', '$pwd', '$email')");
         }
 
         $message = "注册成功";
         if (!$success) {
             if ($exist) {
-                $message = "用户名已存在";
+                $message = "邮箱已存在";
             } else {
                 $message = "注册失败";
             }
@@ -114,7 +115,7 @@ function register($name, $pwd)
 }
 
 /*修改登录密码*/
-function modifypwd($name, $pwd)
+function modifypwd($email, $pwd)
 {
     $newpwd = $_POST['newpwd'];
     global $conn;
@@ -122,10 +123,10 @@ function modifypwd($name, $pwd)
 
     if ($conn) {
         //用户登录
-        $login_result = login($name, $pwd, false);
+        $login_result = login($email, $pwd, false);
         //修改密码
         if ($login_result) {
-            $success = mysqli_query($conn, "update $mysql_table set pwd='$newpwd' where name='$name'");
+            $success = mysqli_query($conn, "update $mysql_table set pwd='$newpwd' where email='$email'");
             if ($success) {
                 //修改成功
                 $modify_result = array("modify_result" => $success);
@@ -162,7 +163,7 @@ function showAll()
         //																		));
 
         while ($row = mysqli_fetch_array($result)) {
-            $array_temp = array("name" => $row['name']);
+            $array_temp = array("name" => $row['name'], "email" => $row['email']);
             array_push($array_data, $array_temp);
         }
         $data = array("total" => $total, "datas" => $array_data, "result" => true);

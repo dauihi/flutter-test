@@ -1,4 +1,6 @@
 ios/*
 android/*
+web/*
 build/*
 .dart_tool/*
+.idea/*
