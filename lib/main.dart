@@ -12,6 +12,7 @@ import 'storage/storage.dart';
 import 'widgets/form_page.dart';
 import 'widgets/network_test_page.dart';
 import 'widgets/isolate_test_page.dart';
+import 'widgets/plugin_test_page.dart';
 
 void main() {
   runApp(ChangeNotifierProvider<ThemeTypeNotifier>.value(
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      home: HomePageTestWidget(),
+      home: PluginTestWidget(),
     );
   }
 }
