@@ -25,7 +25,7 @@ dependencies:
     sdk: flutter
   english_words: ^3.1.0
   provider: ^4.0.0
-  shared_preferences: ^0.4.1
+  shared_preferences: ^0.5.12+4
   path_provider: ^1.6.27
   sqflite: ^1.3.0
   dio: ^3.0.0
@@ -37,6 +37,11 @@ dependencies:
   #本地插件
   flutter_calc_plugin:
     path: plugin/flutter_calc_plugin
+  gesture_plugin:
+    path: plugin/gesture_plugin
+  storage_plugin:
+    path: plugin/storage_plugin
+
 
 
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../storage/storage.dart';
+import 'package:storage_plugin/storage_plugin.dart';
 
 class StorageTestWidget extends StatefulWidget {
   StorageTestWidget({Key key}) : super(key: key);

@@ -1,3 +1,5 @@
+library gesture_plugin;
+
 import 'package:flutter/material.dart';
 
 class GestureDetectorTestRoute extends StatefulWidget {

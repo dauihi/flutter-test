@@ -1,3 +1,5 @@
+library storage_plugin;
+
 import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -113,3 +115,4 @@ Future<List<Map>> _getFromDb() async {
   List<Map> list = await db.rawQuery('SELECT * FROM user');
   return list;
 }
+
